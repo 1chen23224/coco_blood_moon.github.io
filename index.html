@@ -17,7 +17,7 @@
       position:absolute;
       left:50%;
       transform:translateX(-50%);
-      bottom:calc(50vh + 38vh); /* 微微下降，避免太靠近月亮 */
+      bottom:calc(-10vh + 38vh); /* 微微下降，避免太靠近月亮 */
       font-size:12vh;
       font-family:'Cinzel', serif;
       font-weight:bold;
@@ -213,17 +213,6 @@
       z-index:4;
     }
 
-    .macau-skyline {
-      position:absolute;
-      bottom:0;
-      width:100%;
-      height:35vh;
-      background:url('https://upload.wikimedia.org/wikipedia/commons/6/6e/Macau_skyline_silhouette.png') repeat-x bottom;
-      background-size:contain;
-      opacity:0.8;
-      z-index:5;
-    }
-
     .cloud {
       position:absolute;
       top:10%;
@@ -313,7 +302,6 @@
   <div class="reflection"></div>
   <div class="lake-stars"></div>
   <div class="horizon"></div>
-  <div class="macau-skyline"></div>
   <div class="cloud" style="top:20%; animation-delay:0s;"></div>
   <div class="cloud" style="top:30%; animation-delay:30s; animation-duration:150s;"></div>
   <div class="cloud" style="top:40%; animation-delay:60s; animation-duration:180s;"></div>
