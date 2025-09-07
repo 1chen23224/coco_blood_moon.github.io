@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>😂夜景</title>
+  <style>
+    body,html {
+      margin:0;
+      padding:0;
+      height:100%;
+      overflow:hidden;
+      background: radial-gradient(circle at center, #050509 0%, #000 100%);
+    }
+
+    /* SIWAi 標誌 */
+    .siwai {
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:calc(50vh + 38vh); /* 微微下降，避免太靠近月亮 */
+      font-size:12vh;
+      font-family:'Cinzel', serif;
+      font-weight:bold;
+      letter-spacing:1vh;
+      background: linear-gradient(45deg, #ff4d4d, #ffaaaa, #ffffff, #ff4d4d);
+      background-size:400% 400%;
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:0 0 40px rgba(255,0,0,1), 0 0 80px rgba(255,100,100,0.8), 0 0 140px rgba(255,180,180,0.6);
+      z-index:3; /* 在月亮之上顯示 */
+      opacity:0;
+      animation: fadeIn 8s ease-in forwards, shimmerText 12s linear infinite, glowPulse 6s ease-in-out infinite, floatText 10s ease-in-out infinite;
+      animation-delay: 25s; /* 月亮升起後才出現 */
+    }
+    @keyframes fadeIn {
+      0% { opacity:0; transform:translateX(-50%) translateY(20px); }
+      100% { opacity:1; transform:translateX(-50%) translateY(0); }
+    }
+    @keyframes shimmerText {
+      0% { background-position:0% 50%; }
+      50% { background-position:100% 50%; }
+      100% { background-position:0% 50%; }
+    }
+    @keyframes glowPulse {
+      0%,100% { text-shadow:0 0 40px rgba(255,0,0,1), 0 0 80px rgba(255,100,100,0.8), 0 0 140px rgba(255,180,180,0.6); }
+      50% { text-shadow:0 0 80px rgba(255,120,120,1), 0 0 160px rgba(255,180,180,0.9), 0 0 240px rgba(255,200,200,0.8); }
+    }
+    @keyframes floatText {
+      0%,100% { transform:translateX(-50%) translateY(0); }
+      50% { transform:translateX(-50%) translateY(-20px); }
+    }
+
+    /* 星空背景 */
+    .stars {
+      position:absolute;
+      width:100%;
+      height:100%;
+      background:transparent;
+      overflow:hidden;
+      z-index:0;
+      animation: starfieldMove 300s linear infinite;
+    }
+    .stars span {
+      position:absolute;
+      display:block;
+      width:2px;
+      height:2px;
+      background:white;
+      border-radius:50%;
+      opacity:0.8;
+      animation: twinkle 3s infinite ease-in-out, colorShift 8s infinite;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity:0.2; }
+      50% { opacity:1; }
+    }
+    @keyframes starfieldMove {
+      0% { transform: translate(0,0) scale(1); }
+      50% { transform: translate(-8%, -8%) scale(1.08); }
+      100% { transform: translate(-15%, -15%) scale(1.15); }
+    }
+    @keyframes colorShift {
+      0% { background:white; }
+      25% { background: #ffd1dc; }
+      50% { background:#aeefff; }
+      75% { background:#ffe9a3; }
+      100% { background:white; }
+    }
+
+    /* 星雲光暈 */
+    .nebula {
+      position:absolute;
+      width:200vw;
+      height:200vh;
+      top:-50%;
+      left:-50%;
+      background:radial-gradient(circle at 30% 40%, rgba(255,0,100,0.15), transparent 70%),
+                 radial-gradient(circle at 70% 60%, rgba(200,0,255,0.1), transparent 80%),
+                 radial-gradient(circle at 50% 50%, rgba(255,100,0,0.08), transparent 90%),
+                 radial-gradient(circle at 20% 70%, rgba(0,150,255,0.08), transparent 85%),
+                 radial-gradient(circle at 80% 30%, rgba(0,255,150,0.05), transparent 90%);
+      filter: blur(120px);
+      animation: swirl 200s linear infinite, nebulaColor 60s ease-in-out infinite;
+      z-index:0;
+    }
+    @keyframes swirl {
+      0% { transform: rotate(0deg) scale(1); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+    @keyframes nebulaColor {
+      0% { filter: hue-rotate(0deg) blur(120px); opacity:0.6; }
+      25% { filter: hue-rotate(60deg) blur(130px); opacity:0.7; }
+      50% { filter: hue-rotate(120deg) blur(110px); opacity:0.8; }
+      75% { filter: hue-rotate(200deg) blur(125px); opacity:0.7; }
+      100% { filter: hue-rotate(360deg) blur(120px); opacity:0.6; }
+    }
+
+    /* 血月 */
+    .moon {
+      position:absolute;
+      bottom:-40vh;
+      left:50%;
+      transform:translateX(-50%);
+      width:35vh;
+      height:35vh;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #ff4444, #220000);
+      box-shadow:0 0 120px 60px rgba(255,0,0,0.6);
+      animation: rise 25s ease-in forwards;
+      overflow:hidden;
+      z-index:2;
+    }
+    @keyframes rise {
+      0% { bottom:-40vh; }
+      100% { bottom:50vh; }
+    }
+
+    .moon::after {
+      content:'';
+      position:absolute;
+      top:-20%;
+      left:-20%;
+      width:140%;
+      height:140%;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,0,0,0.3), transparent 70%);
+      animation: pulse 6s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform:scale(1); opacity:0.6; }
+      50% { transform:scale(1.2); opacity:0.2; }
+    }
+
+    .eclipse-shadow {
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      border-radius:50%;
+      background: radial-gradient(circle at 70% 50%, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0) 70%);
+      animation: eclipse 30s linear infinite;
+    }
+    @keyframes eclipse {
+      0% { transform: translateX(50%) scale(1.2); opacity:0; }
+      10% { opacity:1; }
+      50% { transform: translateX(0%) scale(1); opacity:1; }
+      90% { opacity:1; }
+      100% { transform: translateX(-50%) scale(1.2); opacity:0; }
+    }
+
+    .reflection {
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translateX(-50%) scaleY(-1);
+      width:35vh;
+      height:35vh;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,80,80,0.5), rgba(50,0,0,0.5));
+      filter: blur(8px) opacity(0.6);
+      animation: ripple 6s infinite ease-in-out;
+      z-index:1;
+    }
+    @keyframes ripple {
+      0%,100% { transform: translateX(-50%) scaleY(-1) scale(1); }
+      50% { transform: translateX(-50%) scaleY(-1) scale(1.05); }
+    }
+
+    .lake-stars {
+      position:absolute;
+      top:50%;
+      width:100%;
+      height:50%;
+      background: repeating-radial-gradient(circle at 50% 20%, rgba(255,255,255,0.1) 0 1px, transparent 2px 40px);
+      transform:scaleY(-1);
+      opacity:0.3;
+      filter: blur(2px);
+      animation: shimmer 10s infinite alternate;
+      z-index:1;
+    }
+    @keyframes shimmer {
+      from { opacity:0.1; }
+      to { opacity:0.3; }
+    }
+
+    .horizon {
+      position:absolute;
+      bottom:0;
+      width:100%;
+      height:50vh;
+      background:linear-gradient(to top, #100, transparent);
+      z-index:4;
+    }
+
+    .macau-skyline {
+      position:absolute;
+      bottom:0;
+      width:100%;
+      height:35vh;
+      background:url('https://upload.wikimedia.org/wikipedia/commons/6/6e/Macau_skyline_silhouette.png') repeat-x bottom;
+      background-size:contain;
+      opacity:0.8;
+      z-index:5;
+    }
+
+    .cloud {
+      position:absolute;
+      top:10%;
+      width:200px;
+      height:60px;
+      background:rgba(255,255,255,0.05);
+      border-radius:100px;
+      filter:blur(10px);
+      animation: drift 120s linear infinite;
+      z-index:6;
+    }
+    .cloud:before,
+    .cloud:after {
+      content:'';
+      position:absolute;
+      background:inherit;
+      width:100px;
+      height:100px;
+      top:-20px;
+      border-radius:50%;
+    }
+    .cloud:before { left:-50px; }
+    .cloud:after { right:-50px; }
+    @keyframes drift {
+      0% { left:-250px; }
+      100% { left:110%; }
+    }
+
+    .moon-shadow {
+      position:absolute;
+      top:0;
+      left:-100%;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.4);
+      border-radius:50%;
+      animation: shadow-drift 60s linear infinite;
+    }
+    @keyframes shadow-drift {
+      0% { left:-120%; opacity:0; }
+      10% { opacity:0.5; }
+      50% { left:20%; opacity:0.3; }
+      90% { opacity:0.5; }
+      100% { left:120%; opacity:0; }
+    }
+
+    .shooting-star {
+      position:absolute;
+      width:2px;
+      height:80px;
+      background:linear-gradient(to bottom, white, transparent);
+      opacity:0;
+      transform:rotate(45deg);
+      z-index:7;
+      animation: shoot 3s linear forwards;
+    }
+    @keyframes shoot {
+      0% { opacity:0; transform:translate(0,0) rotate(45deg) scaleY(0); }
+      10% { opacity:1; transform:translate(-50px,50px) rotate(45deg) scaleY(1); }
+      80% { opacity:1; transform:translate(-400px,400px) rotate(45deg) scaleY(1); }
+      100% { opacity:0; transform:translate(-600px,600px) rotate(45deg) scaleY(0.5); }
+    }
+
+    .fog {
+      position:absolute;
+      bottom:0;
+      width:200%;
+      height:60vh;
+      background:radial-gradient(circle, rgba(255,255,255,0.07), transparent 70%);
+      filter: blur(60px);
+      animation: fog-move 120s linear infinite;
+      z-index:3;
+    }
+    @keyframes fog-move {
+      0% { transform: translateX(-20%); }
+      100% { transform: translateX(20%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="nebula"></div>
+  <div class="stars"></div>
+  <div class="moon">
+    <div class="eclipse-shadow"></div>
+    <div class="moon-shadow"></div>
+  </div>
+  <div class="reflection"></div>
+  <div class="lake-stars"></div>
+  <div class="horizon"></div>
+  <div class="macau-skyline"></div>
+  <div class="cloud" style="top:20%; animation-delay:0s;"></div>
+  <div class="cloud" style="top:30%; animation-delay:30s; animation-duration:150s;"></div>
+  <div class="cloud" style="top:40%; animation-delay:60s; animation-duration:180s;"></div>
+  <div class="fog"></div>
+  <div class="siwai">SIWAi</div>
+  <script>
+    const starsContainer=document.querySelector('.stars');
+    for(let i=0;i<250;i++){
+      const s=document.createElement('span');
+      s.style.top=Math.random()*100+'%';
+      s.style.left=Math.random()*100+'%';
+      s.style.animationDelay=(Math.random()*3)+'s';
+      starsContainer.appendChild(s);
+    }
+
+    function createShootingStar(){
+      const star=document.createElement('div');
+      star.classList.add('shooting-star');
+      star.style.top=Math.random()*50+'%';
+      star.style.left=100+Math.random()*50+'%';
+      document.body.appendChild(star);
+      setTimeout(()=>{ star.remove(); },3000);
+    }
+    setInterval(()=>{
+      if(Math.random()<0.7){
+        createShootingStar();
+      }
+    },2000);
+  </script>
+</body>
+</html>
